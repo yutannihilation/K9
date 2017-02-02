@@ -1,0 +1,19 @@
+Package: K9
+Type: Package
+Title: K9 Is A Data Dog
+Version: 0.1.0
+Author: Hiroaki Yutani
+Maintainer: Hiroaki Yutani<yutani.ini@gmail.com>
+Description: If you don't know about K9, you can see this <https://
+    www.youtube.com/watch?v=WSoC1VUdavE>.
+License: MIT
+Imports:
+    httr,
+    lubridate,
+    anytime,
+    purrr
+Suggests:
+    rstudioapi
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1
