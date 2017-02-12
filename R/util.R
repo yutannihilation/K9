@@ -1,6 +1,6 @@
 # util
 
-k9_request <- function(verb, path, query = NULL, ...) {
+k9_request <- function(verb, path, query = list(), ...) {
   api_key <- Sys.getenv("DATADOG_API_KEY")
   application_key <- Sys.getenv("DATADOG_APP_KEY")
 
@@ -8,15 +8,12 @@ k9_request <- function(verb, path, query = NULL, ...) {
     stop("run k9_auth() first.")
   }
 
-  if(is.list(query)) {
-    query <- purrr::update_list(query,
-                                api_key = api_key,
-                                application_key = application_key)
-  } else {
+  if(!is.list(query)) {
     warning(sprintf("Ignoring invalid query: %s", query))
-    query <- list(api_key = api_key,
-                  application_key = application_key)
+    query <- list()
   }
+  query$api_key <- api_key
+  query$application_key <- application_key
 
   res <- httr::VERB(
     verb = verb,
@@ -46,5 +43,5 @@ to_epochtime <- function(x) {
               lubridate::is.POSIXlt(.) ~ as.integer(as.POSIXct(.)),
               lubridate::is.Date(.) ~ as.integer(as.POSIXct(.)),
               is.character(.) ~ anytime::anytime(.),
-              is.null(.) ~ as.integer(Sys.time() - lubridate::minutes(10)))
+              is.null(.) ~ as.integer(Sys.time()))
 }

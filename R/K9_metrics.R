@@ -4,7 +4,7 @@
 #'
 #' @param from seconds since the unix epoch
 #' @export
-k9_list_active_metrics <- function(from = NULL) {
+k9_list_metrics <- function(from = NULL) {
 
   from <- to_epochtime(from)
 
@@ -25,15 +25,15 @@ k9_list_active_metrics <- function(from = NULL) {
 #' @param from seconds since the unix epoch
 #' @param to seconds since the unix epoch
 #'
-#' @seealso \url{http://docs.datadoghq.com/graphing/}
+#' @seealso \url{http://docs.datadoghq.com/api/?lang=console#metrics}, \url{http://docs.datadoghq.com/graphing/}
 #'
 #' @export
 k9_get_metrics <- function(query, from = NULL, to = NULL) {
-  from <- to_epochtime(from)
-  if(is.null(to)) {
-    to <- from + 3600
+  to <- to_epochtime(to)
+  if(is.null(from)) {
+    from <- to - 3600
   } else {
-    to <- to_epochtime(to)
+    from <- to_epochtime(from)
   }
 
   result <- k9_request(verb = "GET",

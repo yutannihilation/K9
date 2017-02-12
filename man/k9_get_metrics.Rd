@@ -17,5 +17,5 @@ k9_get_metrics(query, from = NULL, to = NULL)
 This end point allows you to query for metrics from any time period.
 }
 \seealso{
-\url{http://docs.datadoghq.com/graphing/}
+\url{http://docs.datadoghq.com/api/?lang=console#metrics}, \url{http://docs.datadoghq.com/graphing/}
 }
