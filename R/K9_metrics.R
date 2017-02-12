@@ -11,8 +11,6 @@ k9_list_active_metrics <- function(from = NULL) {
   result <- k9_request(verb = "GET",
                        path = "/api/v1/metrics",
                        query = list(
-                         api_key = api_key,
-                         application_key = application_key,
                          from = from
                        ))
 
@@ -23,14 +21,14 @@ k9_list_active_metrics <- function(from = NULL) {
 #'
 #' This end point allows you to query for metrics from any time period.
 #'
+#' @param query query string
 #' @param from seconds since the unix epoch
 #' @param to seconds since the unix epoch
-#' @param query query string
 #'
 #' @seealso \url{http://docs.datadoghq.com/graphing/}
 #'
 #' @export
-k9_get_metrics <- function(from = NULL, to = NULL, query) {
+k9_get_metrics <- function(query, from = NULL, to = NULL) {
   from <- to_epochtime(from)
   if(is.null(to)) {
     to <- from + 3600
@@ -41,8 +39,6 @@ k9_get_metrics <- function(from = NULL, to = NULL, query) {
   result <- k9_request(verb = "GET",
                        path = "/api/v1/query",
                        query = list(
-                         api_key = api_key,
-                         application_key = application_key,
                          from  = from,
                          to    = to,
                          query = query

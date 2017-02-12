@@ -12,4 +12,3 @@ k9_list_active_metrics(from = NULL)
 \description{
 Get the list of actively reporting metrics from a given time until now.
 }
-

@@ -1,11 +1,21 @@
 # util
 
-k9_request <- function(verb, path, query, ...) {
+k9_request <- function(verb, path, query = NULL, ...) {
   api_key <- Sys.getenv("DATADOG_API_KEY")
   application_key <- Sys.getenv("DATADOG_APP_KEY")
 
   if(api_key == "" || application_key == "") {
     stop("run k9_auth() first.")
+  }
+
+  if(is.list(query)) {
+    query <- purrr::update_list(query,
+                                api_key = api_key,
+                                application_key = application_key)
+  } else {
+    warning(sprintf("Ignoring invalid query: %s", query))
+    query <- list(api_key = api_key,
+                  application_key = application_key)
   }
 
   res <- httr::VERB(

@@ -8,4 +8,3 @@
 \description{
 You said this package is about Datadog? Affirmative, master!
 }
-

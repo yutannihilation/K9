@@ -4,14 +4,14 @@
 \alias{k9_get_metrics}
 \title{Query Time Series Points}
 \usage{
-k9_get_metrics(from = NULL, to = NULL, query)
+k9_get_metrics(query, from = NULL, to = NULL)
 }
 \arguments{
+\item{query}{query string}
+
 \item{from}{seconds since the unix epoch}
 
 \item{to}{seconds since the unix epoch}
-
-\item{query}{query string}
 }
 \description{
 This end point allows you to query for metrics from any time period.
@@ -19,4 +19,3 @@ This end point allows you to query for metrics from any time period.
 \seealso{
 \url{http://docs.datadoghq.com/graphing/}
 }
-
