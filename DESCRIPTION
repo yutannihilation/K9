@@ -6,7 +6,7 @@ Author: Hiroaki Yutani
 Maintainer: Hiroaki Yutani<yutani.ini@gmail.com>
 Description: If you don't know about K9, you can see this <https://
     www.youtube.com/watch?v=WSoC1VUdavE>.
-License: MIT
+License: MIT + file LICENSE
 Imports:
     httr,
     lubridate,
