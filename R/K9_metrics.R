@@ -58,7 +58,8 @@ k9_flatten_series <- function(x) {
   timestamp_epoch <- purrr::flatten_dbl(x_trans[[1]]) / 1000
   timestamp <- anytime::anytime(timestamp_epoch)
 
-  value <- purrr::flatten_dbl(x_trans[[2]])
+  value <- purrr::map_if(x_trans[[2]], is.null, ~ NA) %>%
+    purrr::flatten_dbl()
 
   tibble::data_frame(
     timestamp    = timestamp,
