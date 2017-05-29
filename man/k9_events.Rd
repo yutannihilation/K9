@@ -24,5 +24,5 @@ k9_events(event_id = NULL, start = NULL, end = NULL, priority = c("low",
 This end point allows you to query for event details.
 }
 \seealso{
-\link{http://docs.datadoghq.com/api/?lang=console#events}
+\url{http://docs.datadoghq.com/api/?lang=console#events}
 }
