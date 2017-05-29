@@ -8,6 +8,7 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
+* The package name was changed from K9 to datadogr in response to the CRAN maintainer's review.
 
 ## Reverse dependencies
 
