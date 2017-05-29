@@ -39,7 +39,7 @@ flatten_list_metrics <- function(result) {
 #' @export
 k9_get_metrics <- function(query = NULL,
                            metric = NULL,
-                           scope = list(),
+                           scope = NULL,
                            by = NULL,
                            from = NULL, to = NULL) {
 
@@ -72,28 +72,6 @@ flatten_get_metrics <- function(result) {
   purrr::map_df(result$series, flatten_metric_one)
 }
 
-
-build_query <- function(metric, scope, by = NULL) {
-  scope_flatten <- paste(names(scope), scope, sep = ":", collapse = ",")
-  if(is.null(by)) {
-    as.character(glue::glue("{metric}{{{scope_flatten}}}"))
-  } else {
-    by_flatten <- paste(by, collapse = ",")
-    as.character(glue::glue("{metric}{{{scope_flatten}}}by{{{by_flatten}}}"))
-  }
-}
-
-
-extract_scope <- function(df) {
-  scope_example <- df$scope[1]
-
-  regex <- stringr::str_replace_all(scope_example, ":([[:alnum:]_\\-./]+)", ":([[:alnum:]_\\\\-./]+)")
-  into <- stringr::str_extract_all(scope_example, "([[:alnum:]_\\-./]+)(?=:)")[[1]]
-
-  tidyr::extract(df, scope, into, regex)
-}
-
-
 # map_int(x, length)
 # #>       metric  query_index   attributes display_name         unit    pointlist          end     interval        start       length
 # #>            1            1            0            1            2           31            1            1            1            1
@@ -108,7 +86,7 @@ flatten_metric_one <- function(x) {
   value <- purrr::map_if(x_trans[[2]], is.null, ~ NA)
   value <-  purrr::flatten_dbl(value)
 
-  tibble::data_frame(
+  tibble::tibble(
     timestamp    = timestamp,
     value        = value,
     metric       = x$metric,
@@ -118,4 +96,39 @@ flatten_metric_one <- function(x) {
     scope        = x$scope,
     expression   = x$expression
   )
+}
+
+
+build_query <- function(metric, scope = NULL, by = NULL) {
+  if(is.null(scope)) {
+    scope_flatten <- "*"
+  } else {
+    scope_flatten <- paste(names(scope), scope, sep = ":", collapse = ",")
+  }
+
+  if(is.null(by)) {
+    as.character(glue::glue("{metric}{{{scope_flatten}}}"))
+  } else {
+    by_flatten <- paste(by, collapse = ",")
+    as.character(glue::glue("{metric}{{{scope_flatten}}}by{{{by_flatten}}}"))
+  }
+}
+
+
+extract_scope <- function(df) {
+  if(is.null(df) || nrow(df) == 0) {
+    warning("df is empty")
+    return(df)
+  }
+  if(!"scope" %in% colnames(df)) {
+    warning("df has no scope column; skip extraction")
+    return(df)
+  }
+
+  scope_example <- df$scope[1]
+
+  regex <- stringr::str_replace_all(scope_example, ":([[:alnum:]_\\-./]+)", ":([[:alnum:]_\\\\-./]+)")
+  into <- stringr::str_extract_all(scope_example, "([[:alnum:]_\\-./]+)(?=:)")[[1]]
+
+  tidyr::extract(df, scope, into, regex)
 }
