@@ -14,7 +14,9 @@ k9_list_metrics <- function(from = NULL) {
                          from = from
                        ))
 
-  flatten_list_metrics(result)
+  result_df <- flatten_list_metrics(result)
+
+  extract_scope(result_df)
 }
 
 flatten_list_metrics <- function(result) {
@@ -103,15 +105,15 @@ flatten_metric_one <- function(x) {
   timestamp_epoch <- purrr::flatten_dbl(x_trans[[1]]) / 1000
   timestamp <- anytime::anytime(timestamp_epoch)
 
-  value <- purrr::map_if(x_trans[[2]], is.null, ~ NA) %>%
-    purrr::flatten_dbl()
+  value <- purrr::map_if(x_trans[[2]], is.null, ~ NA)
+  value <-  purrr::flatten_dbl(value)
 
   tibble::data_frame(
     timestamp    = timestamp,
     value        = value,
     metric       = x$metric,
     display_name = x$display_name,
-    query_index  = x$query_index,
+    query_index  = x$query_index %||% NA_integer_,
     interval     = x$interval,
     scope        = x$scope,
     expression   = x$expression
