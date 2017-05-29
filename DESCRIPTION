@@ -6,7 +6,7 @@ Author: Hiroaki Yutani
 Maintainer: Hiroaki Yutani<yutani.ini@gmail.com>
 Description: If you don't know about K9, you can see this <https://
     www.youtube.com/watch?v=WSoC1VUdavE>.
-License: MIT
+License: MIT + file LICENSE
 Imports:
     anytime,
     glue,
@@ -20,3 +20,4 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)

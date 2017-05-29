@@ -4,7 +4,7 @@
 #'
 #' @param from seconds since the unix epoch
 #' @export
-k9_list_active_metrics <- function(from = NULL) {
+k9_list_metrics <- function(from = NULL) {
 
   from <- to_epochtime(from)
 
@@ -14,6 +14,10 @@ k9_list_active_metrics <- function(from = NULL) {
                          from = from
                        ))
 
+  flatten_list_metrics(result)
+}
+
+flatten_list_metrics <- function(result) {
   purrr::flatten_chr(result$metrics)
 }
 
@@ -28,7 +32,7 @@ k9_list_active_metrics <- function(from = NULL) {
 #' @param from seconds since the unix epoch
 #' @param to seconds since the unix epoch
 #'
-#' @seealso \url{http://docs.datadoghq.com/graphing/}
+#' @seealso \url{http://docs.datadoghq.com/api/?lang=console#metrics}, \url{http://docs.datadoghq.com/graphing/}
 #'
 #' @export
 k9_get_metrics <- function(query = NULL,
@@ -48,7 +52,7 @@ k9_get_metrics <- function(query = NULL,
   if(is.null(to)) {
     to <- from + 3600
   } else {
-    to <- to_epochtime(to)
+    from <- to_epochtime(from)
   }
 
   result <- k9_request(verb = "GET",
@@ -59,11 +63,11 @@ k9_get_metrics <- function(query = NULL,
                          query = query
                        ))
 
-  result_df <- purrr::map_df(result$series, k9_flatten_series)
+  flatten_get_metrics(result)
+}
 
-  if(nrow(result_df) == 0) return(result_df)
-
-  extract_scope(result_df)
+flatten_get_metrics <- function(result) {
+  purrr::map_df(result$series, flatten_metric_one)
 }
 
 
@@ -93,7 +97,7 @@ extract_scope <- function(df) {
 # #>            1            1            0            1            2           31            1            1            1            1
 # #>         aggr        scope   expression
 # #>            0            1            1
-k9_flatten_series <- function(x) {
+flatten_metric_one <- function(x) {
   x_trans <- purrr::transpose(x$pointlist)
 
   timestamp_epoch <- purrr::flatten_dbl(x_trans[[1]]) / 1000
