@@ -55,9 +55,9 @@ k9_events <- function(event_id = NULL,
       stop("priority can be eighter NULL, 'low', or 'normal'.")
     }
 
-    # source
-    if(!is.null(source)) {
-      source <- paste(source, collapse = ",")
+    # sources
+    if(!is.null(sources)) {
+      sources <- paste(sources, collapse = ",")
     }
 
     # tag
