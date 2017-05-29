@@ -9,7 +9,8 @@
 #' @param sources A comma separated string of sources
 #' @param tags A comma separated string of tags
 #'
-#' @seealso \url{http://docs.datadoghq.com/api/?lang=console#events}
+#' @seealso
+#' [http://docs.datadoghq.com/api/?lang=console#events]
 #'
 #' @export
 k9_events <- function(event_id = NULL,

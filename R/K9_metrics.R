@@ -14,6 +14,10 @@ k9_list_metrics <- function(from = NULL) {
                          from = from
                        ))
 
+  flatten_list_metrics(result)
+}
+
+flatten_list_metrics <- function(result) {
   purrr::flatten_chr(result$metrics)
 }
 
@@ -44,7 +48,11 @@ k9_get_metrics <- function(query, from = NULL, to = NULL) {
                          query = query
                        ))
 
-  map_df(result$series, k9_flatten_series)
+  flatten_get_metrics(result)
+}
+
+flatten_get_metrics <- function(result) {
+  purrr::map_df(result$series, flatten_metric_one)
 }
 
 # map_int(x, length)
@@ -52,7 +60,7 @@ k9_get_metrics <- function(query, from = NULL, to = NULL) {
 # #>            1            1            0            1            2           31            1            1            1            1
 # #>         aggr        scope   expression
 # #>            0            1            1
-k9_flatten_series <- function(x) {
+flatten_metric_one <- function(x) {
   x_trans <- purrr::transpose(x$pointlist)
 
   timestamp_epoch <- purrr::flatten_dbl(x_trans[[1]]) / 1000

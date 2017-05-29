@@ -23,8 +23,6 @@ k9_request <- function(verb, path, query = list(), ...) {
     ...
   )
 
-  httr::stop_for_status(res)
-
   x_ratelimit_remaining <- res$headers[["x-ratelimit-remaining"]]
   x_ratelimit_reset <- res$headers[["x-ratelimit-reset"]]
 
@@ -33,7 +31,17 @@ k9_request <- function(verb, path, query = list(), ...) {
                     x_ratelimit_remaining, x_ratelimit_reset))
   }
 
-  httr::content(res)
+  result <- httr::content(res)
+  warn_msg <- result$warnings
+  err_msg <- result$errors
+
+  if(!is.null(warn_msg)) warning(paste(warn_msg, collapse = "\n"))
+  if(!is.null(err_msg))  stop(paste(err_msg, collapse = "\n"))
+
+  # in case the response does not contain "errors" yet the status code shows some error happened...
+  httr::stop_for_status(res)
+
+  result
 }
 
 to_epochtime <- function(x) {

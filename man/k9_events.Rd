@@ -14,7 +14,7 @@ k9_events(event_id = NULL, start = NULL, end = NULL, priority = c("low",
 
 \item{end}{POSIX timestamp}
 
-\item{priority}{`low` or `normal`}
+\item{priority}{\code{low} or \code{normal}}
 
 \item{sources}{A comma separated string of sources}
 
@@ -24,5 +24,5 @@ k9_events(event_id = NULL, start = NULL, end = NULL, priority = c("low",
 This end point allows you to query for event details.
 }
 \seealso{
-\url{http://docs.datadoghq.com/api/?lang=console#events}
+\link{http://docs.datadoghq.com/api/?lang=console#events}
 }
