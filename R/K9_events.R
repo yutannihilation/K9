@@ -60,9 +60,9 @@ k9_events <- function(event_id = NULL,
       sources <- paste(sources, collapse = ",")
     }
 
-    # tag
-    if(!is.null(tag) && is.list(tag)) {
-      tag <- paste(names(tag), tag, sep = ":", collapse = ",")
+    # tags
+    if(!is.null(tags) && is.list(tags)) {
+      tags <- paste(names(tags), tags, sep = ":", collapse = ",")
     }
 
     result <- k9_request(verb = "GET",
