@@ -1,3 +1,5 @@
+#' Authentiation for Datadog
+#'
 #' Set API Key And Application Key
 #'
 #' @export

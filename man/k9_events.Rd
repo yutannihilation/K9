@@ -4,24 +4,40 @@
 \alias{k9_events}
 \title{Get Events}
 \usage{
-k9_events(event_id = NULL, start = NULL, end = NULL, priority = c("low",
-  "normal"), sources = NULL, tags = NULL)
+k9_events(event_id = NULL, start = NULL, end = NULL, priority = NULL,
+  sources = NULL, tags = NULL)
 }
 \arguments{
-\item{event_id}{Event ID}
+\item{event_id}{Event ID.}
 
-\item{start}{POSIX timestamp}
+\item{start}{POSIX timestamp.}
 
-\item{end}{POSIX timestamp}
+\item{end}{POSIX timestamp.}
 
-\item{priority}{\code{low} or \code{normal}}
+\item{priority}{Priority of events. \code{NULL}, \code{"low"} or \code{"normal"}.}
 
-\item{sources}{A comma separated string of sources}
+\item{sources}{Sources of events. A \code{character} vector or a single comma-separated \code{character}.}
 
-\item{tags}{A comma separated string of tags}
+\item{tags}{Tags of events. A named \code{list} or a single comma-separated \code{character}.}
 }
 \description{
 This end point allows you to query for event details.
+}
+\examples{
+\dontrun{
+# by default get all events happend from an hour ago
+k9_events()
+
+# get all events happend in this week
+k9_events(start = Sys.Date() - 7, end = Sys.Date())
+
+# specify an event by ID
+k9_events(event_id = "112233445566")
+
+# specify tag
+k9_events(tags = list(role = "db"))
+}
+
 }
 \seealso{
 \url{http://docs.datadoghq.com/api/?lang=console#events}
