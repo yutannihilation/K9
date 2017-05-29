@@ -2,7 +2,7 @@
 % Please edit documentation in R/K9_auth.R
 \name{k9_auth}
 \alias{k9_auth}
-\title{Authentiation for Datadog}
+\title{Authentication for Datadog}
 \usage{
 k9_auth()
 }
