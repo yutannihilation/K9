@@ -4,10 +4,17 @@
 \alias{k9_get_metrics}
 \title{Query Time Series Points}
 \usage{
-k9_get_metrics(query, from = NULL, to = NULL)
+k9_get_metrics(query = NULL, metric = NULL, scope = list(), by = NULL,
+  from = NULL, to = NULL)
 }
 \arguments{
 \item{query}{query string}
+
+\item{metric}{metric name}
+
+\item{scope}{list of scopes (\code{scope})}
+
+\item{by}{key to group aggregation}
 
 \item{from}{seconds since the unix epoch}
 
