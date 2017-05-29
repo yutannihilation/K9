@@ -20,7 +20,7 @@ devtools::install_github("yutannihilation/K9")
 
 ### Authentication
 
-You must have an API key for Datadog to use APIs. Follow the instruction on the official document: http://docs.datadoghq.com/ja/api/#authentication
+You must have an API key for Datadog to use APIs. Follow the instruction on the official document: http://docs.datadoghq.com/api/#authentication
 
 datadogr package uses `DATADOG_API_KEY` environmental variable for the API key. You can set this by:
 
