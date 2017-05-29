@@ -2,10 +2,11 @@ Package: datadogr
 Type: Package
 Title: R Client for 'Datadog' API
 Version: 0.1.0
-Author: Hiroaki Yutani
-Maintainer: Hiroaki Yutani<yutani.ini@gmail.com>
+Authors@R: person("Hiroaki", "Yutani", , "yutani.ini@gmail.com", c("aut", "cre"))
 Description: Query for metrics from 'Datadog' (<https://www.datadoghq.com/>) via its API.
 License: MIT + file LICENSE
+URL: https://yutannihilation.github.io/K9
+BugReports: https://github.com/yutannihilation/K9/issues
 Imports:
     anytime,
     dplyr,
