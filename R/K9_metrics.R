@@ -14,9 +14,7 @@ k9_list_metrics <- function(from = NULL) {
                          from = from
                        ))
 
-  result_df <- flatten_list_metrics(result)
-
-  extract_scope(result_df)
+  flatten_list_metrics(result)
 }
 
 flatten_list_metrics <- function(result) {
@@ -65,7 +63,9 @@ k9_get_metrics <- function(query = NULL,
                          query = query
                        ))
 
-  flatten_get_metrics(result)
+  result_df <- flatten_get_metrics(result)
+
+  extract_scope(result_df)
 }
 
 flatten_get_metrics <- function(result) {
