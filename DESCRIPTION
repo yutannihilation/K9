@@ -12,7 +12,8 @@ Imports:
     glue,
     httr,
     lubridate,
-    purrr
+    purrr,
+    stringr
 Suggests:
     rstudioapi,
     testthat
