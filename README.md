@@ -78,6 +78,8 @@ The result will look like this:
 
 ### Get Events
 
+(This function is a but experimental.)
+
 ``` r
 k9_events(start = Sys.Date() - 7, end = Sys.Date(), tags = list(role = "db"))
 ```
