@@ -8,12 +8,14 @@ Description: If you don't know about K9, you can see this <https://
     www.youtube.com/watch?v=WSoC1VUdavE>.
 License: MIT
 Imports:
+    anytime,
+    glue,
     httr,
     lubridate,
-    anytime,
     purrr
 Suggests:
-    rstudioapi
+    rstudioapi,
+    testthat
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

@@ -22,13 +22,28 @@ k9_list_active_metrics <- function(from = NULL) {
 #' This end point allows you to query for metrics from any time period.
 #'
 #' @param query query string
+#' @param metric metric name
+#' @param scope list of scopes (\code{scope})
+#' @param by key to group aggregation
 #' @param from seconds since the unix epoch
 #' @param to seconds since the unix epoch
 #'
 #' @seealso \url{http://docs.datadoghq.com/graphing/}
 #'
 #' @export
-k9_get_metrics <- function(query, from = NULL, to = NULL) {
+k9_get_metrics <- function(query = NULL,
+                           metric = NULL,
+                           scope = list(),
+                           by = NULL,
+                           from = NULL, to = NULL) {
+
+  if(is.null(query)) {
+    if(is.null(metric)) stop("please specify query or metric")
+
+    query <- build_query(metric, scope, by)
+    message("query: ", query)
+  }
+
   from <- to_epochtime(from)
   if(is.null(to)) {
     to <- from + 3600
@@ -44,8 +59,32 @@ k9_get_metrics <- function(query, from = NULL, to = NULL) {
                          query = query
                        ))
 
-  map_df(result$series, k9_flatten_series)
+  result_df <- purrr::map_df(result$series, k9_flatten_series)
+
+  extract_scope(result_df)
 }
+
+
+build_query <- function(metric, scope, by = NULL) {
+  scope_flatten <- paste(names(scope), scope, sep = ":", collapse = ",")
+  if(is.null(by)) {
+    as.character(glue::glue("{metric}{{{scope_flatten}}}"))
+  } else {
+    by_flatten <- paste(by, collapse = ",")
+    as.character(glue::glue("{metric}{{{scope_flatten}}}by{{{by_flatten}}}"))
+  }
+}
+
+
+extract_scope <- function(df) {
+  scope_example <- df$scope[1]
+
+  regex <- stringr::str_replace_all(scope_example, ":([[:alnum:]_\\-./]+)", ":([[:alnum:]_\\\\-./]+)")
+  into <- stringr::str_extract_all(scope_example, "([[:alnum:]_\\-./]+)(?=:)")[[1]]
+
+  tidyr::extract(df, scope, into, regex)
+}
+
 
 # map_int(x, length)
 # #>       metric  query_index   attributes display_name         unit    pointlist          end     interval        start       length
