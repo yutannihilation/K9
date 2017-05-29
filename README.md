@@ -75,3 +75,9 @@ The result will look like this:
 #> 2 2015-04-29 22:00:00 99.85857 system.cpu.idle system.cpu.idle           0      600 vagrant-ubuntu-trusty-64
 #> # ... with 3 more variables: environment <chr>, role <chr>, region <chr>, expression <chr>
 ```
+
+### Get Events
+
+``` r
+k9_events(start = Sys.Date() - 7, end = Sys.Date(), tags = list(role = "db"))
+```
