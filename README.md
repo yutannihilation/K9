@@ -1,4 +1,4 @@
-# K9
+# datadogr
 
 [![Travis-CI Build Status](https://travis-ci.org/yutannihilation/K9.svg?branch=master)](https://travis-ci.org/yutannihilation/K9)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/yutannihilation/K9?branch=master&svg=true)](https://ci.appveyor.com/project/yutannihilation/K9)
@@ -6,19 +6,11 @@
 
 ## About
 
-### What is K9?
-
-K9 is a great datadog. Watch [this](https://www.youtube.com/watch?v=WSoC1VUdavE).
-
-Affirmative, master!!!
-
-### Then, what is K9 package?
-
-K9 is a simple package for querying data from [Datadog](https://www.datadoghq.com/).
+datadogr is a simple package for querying data from [Datadog](https://www.datadoghq.com/).
 
 ## Installation
 
-K9 is not on CRAN yet. You can install with `devtools::install_github()`
+datadogr is not on CRAN yet. You can install with `devtools::install_github()`
 
 ``` r
 devtools::install_github("yutannihilation/K9")
@@ -30,7 +22,7 @@ devtools::install_github("yutannihilation/K9")
 
 You must have an API key for Datadog to use APIs. Follow the instruction on the official document: http://docs.datadoghq.com/ja/api/#authentication
 
-K9 package uses `DATADOG_API_KEY` environmental variable for the API key. You can set this by:
+datadogr package uses `DATADOG_API_KEY` environmental variable for the API key. You can set this by:
 
 * defining the environmental variables in `.Renviron` and restart R session.
 * inputting on the popup of `k9_auth()` interactively.
