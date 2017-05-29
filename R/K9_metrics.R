@@ -160,5 +160,7 @@ extract_scope <- function(df) {
   regex <- stringr::str_replace_all(scope_example, ":([[:alnum:]_\\-./]+)", ":([[:alnum:]_\\\\-./]+)")
   into <- stringr::str_extract_all(scope_example, "([[:alnum:]_\\-./]+)(?=:)")[[1]]
 
+  # TODO: remove this workaround if tidyr gets .data
+  scope <- NULL
   tidyr::extract(df, scope, into, regex)
 }
