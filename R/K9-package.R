@@ -2,7 +2,7 @@
 #'
 #' Query for metrics from 'Datadog' (<https://www.datadoghq.com/>) via its API.
 #'
-#' @name K9
+#' @name datadogr
 #' @importFrom purrr %||%
 #' @docType package
 NULL

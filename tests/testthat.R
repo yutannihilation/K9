@@ -1,4 +1,4 @@
 library(testthat)
-library(K9)
+library(datadogr)
 
 test_check("K9")

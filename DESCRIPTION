@@ -1,4 +1,4 @@
-Package: K9
+Package: datadogr
 Type: Package
 Title: R Client for 'Datadog' API
 Version: 0.1.0
