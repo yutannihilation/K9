@@ -4,7 +4,7 @@
 \name{K9}
 \alias{K9}
 \alias{K9-package}
-\title{K9 Is A Data Dog}
+\title{R Client for 'Datadog' API}
 \description{
-You said this package is about Datadog? Affirmative, master!
+Query for metrics from 'Datadog' (\url{https://www.datadoghq.com/}) via its API.
 }

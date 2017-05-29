@@ -1,6 +1,6 @@
-#' K9 Is A Data Dog
+#' R Client for 'Datadog' API
 #'
-#' You said this package is about Datadog? Affirmative, master!
+#' Query for metrics from 'Datadog' (<https://www.datadoghq.com/>) via its API.
 #'
 #' @name K9
 #' @importFrom purrr %||%

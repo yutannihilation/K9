@@ -1,4 +1,4 @@
-#' Authentication for Datadog
+#' Authentication for 'Datadog'
 #'
 #' Set API Key And Application Key
 #'
