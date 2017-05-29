@@ -13,7 +13,8 @@ Imports:
     httr,
     lubridate,
     purrr,
-    stringr
+    stringr,
+    tidyr
 Suggests:
     rstudioapi,
     testthat

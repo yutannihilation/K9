@@ -23,6 +23,27 @@ k9_get_metrics(query = NULL, metric = NULL, scope = NULL, by = NULL,
 \description{
 This end point allows you to query for metrics from any time period.
 }
+\details{
+You can query either \code{query}, or the combination of \code{metric}, \code{scope} and \code{by}.
+For example, on the one hand you can directly query by using
+\code{query = "system.cpu.idle{role:db,environment:test}by{host,region}"}.
+On the other hand, you can specify \code{metric = "system.cpu.idle"},
+\code{scope = list(role = "db", environment = "test")} and \code{by = c("host", "region"),}
+to build the same query.
+
+Note that, if \code{query} is given, the latter will be ignored.
+
+\code{from} and \code{by} can be one of these:
+\itemize{
+\item \code{numeric}
+\item \code{POSIXct}
+\item \code{POSIXlt}
+\item \code{Date}
+\item \code{character} (parsed by \code{\link[anytime:anytime]{anytime::anytime()}})
+\item \code{NULL} (the current epochtime will be used instead)
+}
+}
 \seealso{
-\url{http://docs.datadoghq.com/api/?lang=console#metrics}, \url{http://docs.datadoghq.com/graphing/}
+\url{http://docs.datadoghq.com/api/?lang=console#metrics}
+\url{http://docs.datadoghq.com/graphing/}
 }

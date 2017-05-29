@@ -3,6 +3,16 @@
 #' Get the list of actively reporting metrics from a given time until now.
 #'
 #' @param from seconds since the unix epoch
+#'
+#' @examples
+#' \dontrun{
+#' # by default, list all metrics available on the current datetime
+#' k9_list_metrics()
+#'
+#' # if from argument is provided, this tries to get active metrics from the time
+#' k9_list_metrics(Sys.Date() - 1)
+#' }
+#'
 #' @export
 k9_list_metrics <- function(from = NULL) {
 
@@ -27,12 +37,32 @@ flatten_list_metrics <- function(result) {
 #'
 #' @param query query string
 #' @param metric metric name
-#' @param scope list of scopes (\code{scope})
+#' @param scope list of scopes (`scope`)
 #' @param by key to group aggregation
 #' @param from seconds since the unix epoch
 #' @param to seconds since the unix epoch
 #'
-#' @seealso \url{http://docs.datadoghq.com/api/?lang=console#metrics}, \url{http://docs.datadoghq.com/graphing/}
+#' @details
+#' You can query either `query`, or the combination of `metric`, `scope` and `by`.
+#' For example, on the one hand you can directly query by using
+#' `query = "system.cpu.idle{role:db,environment:test}by{host,region}"`.
+#' On the other hand, you can specify `metric = "system.cpu.idle"`,
+#' `scope = list(role = "db", environment = "test")` and `by = c("host", "region"),`
+#' to build the same query.
+#'
+#' Note that, if `query` is given, the latter will be ignored.
+#'
+#' `from` and `by` can be one of these:
+#' * `numeric`
+#' * `POSIXct`
+#' * `POSIXlt`
+#' * `Date`
+#' * `character` (parsed by [anytime::anytime()])
+#' * `NULL` (the current epochtime will be used instead)
+#'
+#' @seealso
+#' <http://docs.datadoghq.com/api/?lang=console#metrics>
+#' <http://docs.datadoghq.com/graphing/>
 #'
 #' @export
 k9_get_metrics <- function(query = NULL,

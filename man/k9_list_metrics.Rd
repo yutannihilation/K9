@@ -12,3 +12,13 @@ k9_list_metrics(from = NULL)
 \description{
 Get the list of actively reporting metrics from a given time until now.
 }
+\examples{
+\dontrun{
+# by default, list all metrics available on the current datetime
+k9_list_metrics()
+
+# if from argument is provided, this tries to get active metrics from the time
+k9_list_metrics(Sys.Date() - 1)
+}
+
+}
