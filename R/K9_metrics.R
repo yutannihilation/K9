@@ -61,6 +61,8 @@ k9_get_metrics <- function(query = NULL,
 
   result_df <- purrr::map_df(result$series, k9_flatten_series)
 
+  if(nrow(result_df) == 0) return(result_df)
+
   extract_scope(result_df)
 }
 
