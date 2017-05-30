@@ -2,7 +2,6 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/yutannihilation/K9.svg?branch=master)](https://travis-ci.org/yutannihilation/K9)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/yutannihilation/K9?branch=master&svg=true)](https://ci.appveyor.com/project/yutannihilation/K9)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/K9)](https://cran.r-project.org/package=K9)
 
 ## About
 
