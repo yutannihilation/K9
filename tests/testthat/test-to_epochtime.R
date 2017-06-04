@@ -23,7 +23,7 @@ test_that("to_epochtime with character works", {
   expect_equal(to_epochtime(x), y)
 
   x <- "2017-06-04 00:01:00"
-  y <- y + 60
+  y <- y + 60L
   expect_equal(to_epochtime(x), y)
 })
 
