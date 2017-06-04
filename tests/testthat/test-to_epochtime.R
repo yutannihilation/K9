@@ -18,6 +18,9 @@ test_that("to_epochtime with Date works", {
 })
 
 test_that("to_epochtime with character works", {
+  # timezone is a tough thing...
+  testthat::skip_if_not(Sys.timezone() == "Asia/Tokyo")
+
   x <- "1970-01-01"
   y <- as.integer(lubridate::ymd(x, tz = Sys.timezone()))
   expect_equal(to_epochtime(x), to_epochtime(y))
