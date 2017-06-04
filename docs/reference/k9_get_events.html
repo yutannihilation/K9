@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query Time Series Points Å\ k9_get_metrics ‚Ä¢ datadogr</title>
+<title>Get Events Å\ k9_get_events ‚Ä¢ datadogr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,42 +71,42 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Query Time Series Points</h1>
+    <h1>Get Events</h1>
     </div>
 
     
-    <p>This end point allows you to query for metrics from any time period.</p>
+    <p>This end point allows you to query for event details.</p>
     
 
-    <pre class="usage"><span class='fu'>k9_get_metrics</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>metric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scope</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.split_request</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>k9_get_events</span>(<span class='kw'>event_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sources</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.split_request</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>query</th>
-      <td><p>query string</p></td>
+      <th>event_id</th>
+      <td><p>Event ID.</p></td>
     </tr>
     <tr>
-      <th>metric</th>
-      <td><p>metric name</p></td>
+      <th>start</th>
+      <td><p>POSIX timestamp.</p></td>
     </tr>
     <tr>
-      <th>scope</th>
-      <td><p>list of scopes (<code>scope</code>)</p></td>
+      <th>end</th>
+      <td><p>POSIX timestamp.</p></td>
     </tr>
     <tr>
-      <th>by</th>
-      <td><p>key to group aggregation</p></td>
+      <th>priority</th>
+      <td><p>Priority of events. <code>NULL</code>, <code>"low"</code> or <code>"normal"</code>.</p></td>
     </tr>
     <tr>
-      <th>from</th>
-      <td><p>seconds since the unix epoch</p></td>
+      <th>sources</th>
+      <td><p>Sources of events. A <code>character</code> vector or a single comma-separated <code>character</code>.</p></td>
     </tr>
     <tr>
-      <th>to</th>
-      <td><p>seconds since the unix epoch</p></td>
+      <th>tags</th>
+      <td><p>Tags of events. A named <code>list</code> or a single comma-separated <code>character</code>.</p></td>
     </tr>
     <tr>
       <th>.split_request</th>
@@ -114,40 +114,35 @@
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>You can query either <code>query</code>, or the combination of <code>metric</code>, <code>scope</code> and <code>by</code>.
-For example, on the one hand you can directly query by using
-<code>query = "system.cpu.idle{role:db,environment:test}by{host,region}"</code>.
-On the other hand, you can specify <code>metric = "system.cpu.idle"</code>,
-<code>scope = list(role = "db", environment = "test")</code> and <code>by = c("host", "region"),</code>
-to build the same query.</p>
-<p>Note that, if <code>query</code> is given, the latter will be ignored.
-    <code>from</code> and <code>by</code> can be one of these:</p><ul>
-<li><p><code>numeric</code></p></li>
-<li><p><code>POSIXct</code></p></li>
-<li><p><code>POSIXlt</code></p></li>
-<li><p><code>Date</code></p></li>
-<li><p><code>character</code> (parsed by <code><a href='http://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anytime()</a></code>)</p></li>
-<li><p><code>NULL</code> (the current epochtime will be used instead)</p></li>
-</ul>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href = 'http://docs.datadoghq.com/api/?lang=console#metrics'>http://docs.datadoghq.com/api/?lang=console#metrics</a>
-<a href = 'http://docs.datadoghq.com/graphing/'>http://docs.datadoghq.com/graphing/</a></p>
+    <p><a href = 'http://docs.datadoghq.com/api/?lang=console#events'>http://docs.datadoghq.com/api/?lang=console#events</a></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
+  <span class='co'># by default get all events happend from an hour ago</span>
+  <span class='fu'>k9_get_events</span>()
+
+  <span class='co'># get all events happend in this week</span>
+  <span class='fu'>k9_get_events</span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>Sys.Date</span>() - <span class='fl'>7</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>Sys.Date</span>())
+
+  <span class='co'># specify an event by ID</span>
+  <span class='fu'>k9_get_events</span>(<span class='kw'>event_id</span> <span class='kw'>=</span> <span class='st'>"112233445566"</span>)
+
+  <span class='co'># specify tag</span>
+  <span class='fu'>k9_get_events</span>(<span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"db"</span>))
+})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

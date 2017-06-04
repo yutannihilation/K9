@@ -35,14 +35,7 @@
   <a href="news/index.html">News</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/yutannihilation/K9">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -65,8 +58,11 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>datadogr is not on CRAN yet. You can install with <code>devtools::install_github()</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"yutannihilation/K9"</span>)</code></pre></div>
+<p>datadogr is on CRAN now. You can install the released version from CRAN:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"datadogr"</span>)</code></pre></div>
+<p>Or the the development version from GitHub:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+devtools::<span class="kw">install_github</span>(<span class="st">"yutannihilation/K9"</span>)</code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -115,7 +111,7 @@
 <h3 class="hasAnchor">
 <a href="#get-events" class="anchor"></a>Get Events</h3>
 <p>(This function is a but experimental.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/k9_events.html">k9_events</a></span>(<span class="dt">start =</span> <span class="kw">Sys.Date</span>() -<span class="st"> </span><span class="dv">7</span>, <span class="dt">end =</span> <span class="kw">Sys.Date</span>(), <span class="dt">tags =</span> <span class="kw">list</span>(<span class="dt">role =</span> <span class="st">"db"</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/k9_get_events.html">k9_get_events</a></span>(<span class="dt">start =</span> <span class="kw">Sys.Date</span>() -<span class="st"> </span><span class="dv">7</span>, <span class="dt">end =</span> <span class="kw">Sys.Date</span>(), <span class="dt">tags =</span> <span class="kw">list</span>(<span class="dt">role =</span> <span class="st">"db"</span>))</code></pre></div>
 </div>
 </div>
 </div>
@@ -124,7 +120,9 @@
   <div class="col-md-3" id="sidebar">
     <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/yutannihilation/K9">https://​github.com/​yutannihilation/​K9</a>
+<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=datadogr">https://​cran.r-project.org/​package=datadogr</a>
+</li>
+<li>Browse source code at <br><a href="https://yutannihilation.github.io/K9">https://​yutannihilation.github.io/​K9</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/yutannihilation/K9/issues">https://​github.com/​yutannihilation/​K9/​issues</a>
 </li>
@@ -139,7 +137,7 @@
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/yutannihilation/K9"><img src="https://travis-ci.org/yutannihilation/K9.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/yutannihilation/K9"><img src="https://ci.appveyor.com/api/projects/status/github/yutannihilation/K9?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://cran.r-project.org/package=K9"><img src="http://www.r-pkg.org/badges/version/K9" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=datadogr"><img src="http://www.r-pkg.org/badges/version/datadogr" alt="CRAN_Status_Badge"></a></li>
 </ul>
 </div>
 </div>
