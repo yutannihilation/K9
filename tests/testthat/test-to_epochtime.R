@@ -18,11 +18,11 @@ test_that("to_epochtime with Date works", {
 })
 
 test_that("to_epochtime with character works", {
-  x <- "2017-06-04"
-  y <- as.integer(as.POSIXct(strptime("2017-06-04", "%Y-%m-%d")))
-  expect_equal(to_epochtime(x), y)
+  x <- "1970-01-01"
+  y <- as.integer(lubridate::ymd(x, tz = Sys.timezone()))
+  expect_equal(to_epochtime(x), to_epochtime(y))
 
-  x2 <- "2017-06-04 00:00:00"
+  x2 <- "1970-01-01 00:00:00"
   expect_equal(to_epochtime(x), to_epochtime(x2))
 })
 
