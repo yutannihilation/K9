@@ -22,9 +22,8 @@ test_that("to_epochtime with character works", {
   y <- as.integer(as.POSIXct(strptime("2017-06-04", "%Y-%m-%d")))
   expect_equal(to_epochtime(x), y)
 
-  x <- "2017-06-04 00:01:00"
-  y <- y + 60L
-  expect_equal(to_epochtime(x), y)
+  x2 <- "2017-06-04 00:00:00"
+  expect_equal(to_epochtime(x), to_epochtime(x2))
 })
 
 test_that("to_epochtime with NULL throws error", {
