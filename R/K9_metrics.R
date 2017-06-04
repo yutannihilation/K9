@@ -42,6 +42,7 @@ flatten_list_metrics <- function(result) {
 #' @param by key to group aggregation
 #' @param from seconds since the unix epoch
 #' @param to seconds since the unix epoch
+#' @param .split_request if `TRUE`, automatically split the request when the target period is longer than a day
 #'
 #' @details
 #' You can query either `query`, or the combination of `metric`, `scope` and `by`.
@@ -70,7 +71,8 @@ k9_get_metrics <- function(query = NULL,
                            metric = NULL,
                            scope = NULL,
                            by = NULL,
-                           from = NULL, to = NULL) {
+                           from = NULL, to = NULL,
+                           .split_request = TRUE) {
 
   if(is.null(query)) {
     if(is.null(metric)) stop("please specify query or metric")
@@ -80,10 +82,15 @@ k9_get_metrics <- function(query = NULL,
   }
 
 
-  period <- to_epochperiod(from, to)
-  from <- period[1]
-  to <- period[2]
+  period <- to_epochperiod(from, to, .split_request = .split_request)
 
+  purrr::map2_df(.y = dplyr::lag(period)[-1],
+                 .x = period[-1],
+                 .f = k9_get_metrics_one,
+                 query = query)
+}
+
+k9_get_metrics_one <- function(query, from, to) {
   result <- k9_request(verb = "GET",
                        path = "/api/v1/query",
                        query = list(

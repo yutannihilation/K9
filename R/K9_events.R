@@ -8,32 +8,34 @@
 #' @param priority Priority of events. `NULL`, `"low"` or `"normal"`.
 #' @param sources Sources of events. A `character` vector or a single comma-separated `character`.
 #' @param tags Tags of events. A named `list` or a single comma-separated `character`.
+#' @param .split_request if `TRUE`, automatically split the request when the target period is longer than a day
 #'
 #' @examples
 #' \dontrun{
 #' # by default get all events happend from an hour ago
-#' k9_events()
+#' k9_get_events()
 #'
 #' # get all events happend in this week
-#' k9_events(start = Sys.Date() - 7, end = Sys.Date())
+#' k9_get_events(start = Sys.Date() - 7, end = Sys.Date())
 #'
 #' # specify an event by ID
-#' k9_events(event_id = "112233445566")
+#' k9_get_events(event_id = "112233445566")
 #'
 #' # specify tag
-#' k9_events(tags = list(role = "db"))
+#' k9_get_events(tags = list(role = "db"))
 #' }
 #'
 #' @seealso
 #' <http://docs.datadoghq.com/api/?lang=console#events>
 #'
 #' @export
-k9_events <- function(event_id = NULL,
+k9_get_events <- function(event_id = NULL,
                       start = NULL,
                       end = NULL,
                       priority = NULL,
                       sources = NULL,
-                      tags = NULL) {
+                      tags = NULL,
+                      .split_request = TRUE) {
 
   if(!is.null(event_id)) {
     if(is.numeric(event_id)) {
@@ -44,8 +46,6 @@ k9_events <- function(event_id = NULL,
   } else {
     # end and start
     period <- to_epochperiod(start, end)
-    start <- period[1]
-    end <- period[2]
 
     # priority
     if(!is.null(priority) && !priority %in% c('low', 'normal')) {
@@ -62,16 +62,31 @@ k9_events <- function(event_id = NULL,
       tags <- paste(names(tags), tags, sep = ":", collapse = ",")
     }
 
-    result <- k9_request(verb = "GET",
-                         path = "/api/v1/events",
-                         query = list(
-                           start  = start,
-                           end    = end,
-                           priority = priority,
-                           sources = sources,
-                           tags = tags
-                         ))
+    purrr::map2_df(.y = dplyr::lag(period)[-1],
+                   .x = period[-1],
+                   .f = k9_get_events_one,
+                   query = query)
   }
 
+  result
+}
+
+
+k9_get_events_one <- function(start, end,
+                          priority = NULL,
+                          sources = NULL,
+                          tags = NULL) {
+
+  result <- k9_request(verb = "GET",
+                       path = "/api/v1/events",
+                       query = list(
+                         start  = start,
+                         end    = end,
+                         priority = priority,
+                         sources = sources,
+                         tags = tags
+                       ))
+
+  # TODO: convert to a data.frame
   result
 }
