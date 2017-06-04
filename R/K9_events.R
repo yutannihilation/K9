@@ -43,12 +43,9 @@ k9_events <- function(event_id = NULL,
                          path = sprintf("/api/v1/events/%s", event_id))
   } else {
     # end and start
-    end <- to_epochtime(end)
-    if(is.null(start)) {
-      start <- end - 3600
-    } else {
-      start <- to_epochtime(start)
-    }
+    period <- to_epochperiod(start, end)
+    start <- period[1]
+    end <- period[2]
 
     # priority
     if(!is.null(priority) && !priority %in% c('low', 'normal')) {

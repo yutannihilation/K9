@@ -55,3 +55,16 @@ to_epochtime <- function(x) {
               is.character(.) ~ as.integer(anytime::anytime(.)),
               ~ stop("Unsupported type", typeof(.)))
 }
+
+# 1) If `from` and `to` are both `NULL`, get metrics between 1 day ago and now.
+# 2) If only `from` is `NULL`, get metrics between 1 day before from `to`, and `to`.
+# 3) If only `to` is `NULL`, get metrics between `from` and now.
+# 4) If both are not `NULL`, get metrics between `from` and `to`.
+# Show a warning if the period is longer than 24 hour since its granularity may be degraded then.
+to_epockperiod <- function(from = NULL, to = NULL) {
+  to <- to_epochtime(to %||% Sys.time())
+  from <- to_epochtime(from %||% (to - 86400L))
+
+  if(to - from > 86400L) warning("The period is longer than 24 hour; the granularity of metrics may be degraded.")
+  c(from, to)
+}

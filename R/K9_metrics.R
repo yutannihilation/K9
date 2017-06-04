@@ -16,6 +16,7 @@
 #' @export
 k9_list_metrics <- function(from = NULL) {
 
+  if(is.null(from)) from <- Sys.time()
   from <- to_epochtime(from)
 
   result <- k9_request(verb = "GET",
@@ -78,12 +79,10 @@ k9_get_metrics <- function(query = NULL,
     message("query: ", query)
   }
 
-  from <- to_epochtime(from)
-  if(is.null(to)) {
-    to <- from + 3600
-  } else {
-    from <- to_epochtime(from)
-  }
+
+  period <- to_epochperiod(from, to)
+  from <- period[1]
+  to <- period[2]
 
   result <- k9_request(verb = "GET",
                        path = "/api/v1/query",
