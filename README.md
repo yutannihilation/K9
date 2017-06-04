@@ -80,5 +80,5 @@ The result will look like this:
 (This function is a but experimental.)
 
 ``` r
-k9_events(start = Sys.Date() - 7, end = Sys.Date(), tags = list(role = "db"))
+k9_get_events(start = Sys.Date() - 7, end = Sys.Date(), tags = list(role = "db"))
 ```

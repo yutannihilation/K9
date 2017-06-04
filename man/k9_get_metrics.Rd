@@ -5,7 +5,7 @@
 \title{Query Time Series Points}
 \usage{
 k9_get_metrics(query = NULL, metric = NULL, scope = NULL, by = NULL,
-  from = NULL, to = NULL)
+  from = NULL, to = NULL, .split_request = TRUE)
 }
 \arguments{
 \item{query}{query string}
@@ -19,6 +19,8 @@ k9_get_metrics(query = NULL, metric = NULL, scope = NULL, by = NULL,
 \item{from}{seconds since the unix epoch}
 
 \item{to}{seconds since the unix epoch}
+
+\item{.split_request}{if \code{TRUE}, automatically split the request when the target period is longer than a day}
 }
 \description{
 This end point allows you to query for metrics from any time period.
