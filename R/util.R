@@ -45,11 +45,13 @@ k9_request <- function(verb, path, query = list(), ...) {
 }
 
 to_epochtime <- function(x) {
+  if(length(x) > 1) stop('x must be a vector of length one.')
+
   purrr::when(x,
               is.numeric(.) ~ as.integer(.),
               lubridate::is.POSIXct(.) ~ as.integer(.),
               lubridate::is.POSIXlt(.) ~ as.integer(as.POSIXct(.)),
               lubridate::is.Date(.) ~ as.integer(as.POSIXct(.)),
-              is.character(.) ~ anytime::anytime(.),
-              is.null(.) ~ as.integer(Sys.time()))
+              is.character(.) ~ as.integer(anytime::anytime(.)),
+              ~ stop("Unsupported type", typeof(.)))
 }
