@@ -84,8 +84,8 @@ k9_get_metrics <- function(query = NULL,
 
   period <- to_epochperiod(from, to, .split_request = .split_request)
 
-  purrr::map2_df(.y = dplyr::lag(period)[-1],
-                 .x = period[-1],
+  purrr::map2_df(.x = dplyr::lag(period)[-1],
+                 .y = period[-1],
                  .f = k9_get_metrics_one,
                  query = query)
 }
