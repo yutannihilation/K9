@@ -14,7 +14,7 @@ Get the list of actively reporting metrics from a given time until now.
 }
 \examples{
 \dontrun{
-# by default, list all metrics available on the current datetime
+# by default, list all metrics available since 1 hour ago
 k9_list_metrics()
 
 # if from argument is provided, this tries to get active metrics from the time

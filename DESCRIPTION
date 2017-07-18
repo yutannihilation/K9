@@ -1,7 +1,7 @@
 Package: datadogr
 Type: Package
 Title: R Client for 'Datadog' API
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: person("Hiroaki", "Yutani", , "yutani.ini@gmail.com", c("aut", "cre"))
 Description: Query for metrics from 'Datadog' (<https://www.datadoghq.com/>) via its API.
 License: MIT + file LICENSE
