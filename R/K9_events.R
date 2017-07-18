@@ -65,7 +65,8 @@ k9_get_events <- function(event_id = NULL,
     purrr::map2_df(.x = dplyr::lag(period)[-1],
                    .y = period[-1],
                    .f = k9_get_events_one,
-                   query = query)
+                   sources = sources,
+                   tags = tags)
   }
 
   result
