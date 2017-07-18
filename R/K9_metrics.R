@@ -6,7 +6,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' # by default, list all metrics available on the current datetime
+#' # by default, list all metrics available since 1 hour ago
 #' k9_list_metrics()
 #'
 #' # if from argument is provided, this tries to get active metrics from the time
@@ -16,7 +16,7 @@
 #' @export
 k9_list_metrics <- function(from = NULL) {
 
-  if(is.null(from)) from <- Sys.time()
+  if(is.null(from)) from <- Sys.time() - 3600
   from <- to_epochtime(from)
 
   result <- k9_request(verb = "GET",
