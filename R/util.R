@@ -68,7 +68,8 @@ to_epochperiod <- function(from = NULL, to = NULL, .split_request = TRUE) {
 
   if(.split_request){
     result <- seq(from, to, by = 86400L)
-    result <- c(result, to)
+    # to might be already included in result
+    result <- unique(c(result, to))
   } else {
     if(to - from > 86400L) warning("The period is longer than 24 hour; the granularity of metrics may be degraded.")
     result <- c(from, to)
