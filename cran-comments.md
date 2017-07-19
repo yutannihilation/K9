@@ -7,7 +7,7 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is second release.
+* This submission includes some improvement about calculation of time periods and error handlings.
 
 ## Reverse dependencies
 
