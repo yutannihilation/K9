@@ -111,12 +111,15 @@ k9_get_metrics_one <- function(query, from, to) {
 #'
 #' @param metric the name of the time series
 #' @param metric_type type of your metric either: gauge, rate, or count. Optional, default=gauge
-#' @param interval if the type of the metric is rate or count, define the corresponding interval. Optional, default=None
 #' @param value the numeric value to post
 #' @param tags a list of tags associated with the metric.
+#' @param interval if the type of the metric is rate or count, define the corresponding interval. Optional, default=None
 #'
 #' @details
-#'
+#' The Datadog API uses resource-oriented URLs, uses status codes to indicate the success or failure of requests and returns JSON from all requests. 
+#' With this method you can post counters, gauges to measure the value of a 
+#' particular thing over time and rates that represent the derivative of a 
+#' metric, it’s the value variation of a metric on a defined time interval.
 #' @seealso
 #' <http://docs.datadoghq.com/api/?lang=console#metrics>
 #' <http://docs.datadoghq.com/graphing/>
