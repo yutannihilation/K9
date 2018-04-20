@@ -16,7 +16,8 @@ Imports:
     purrr,
     stringr,
     tidyr,
-    tibble
+    tibble,
+    jsonlite
 Suggests:
     rstudioapi,
     testthat
