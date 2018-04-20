@@ -1,4 +1,3 @@
-library(jsonlite)
 #' Get List Of Active Metrics
 #'
 #' Get the list of actively reporting metrics from a given time until now.
@@ -144,7 +143,6 @@ k9_post_metric <- function(metric, metric_type, value, tags=list(), interval=NUL
                         body = list("series" = list(series)),
                         encode = "json")
 
-  result$content = fromJSON(result$content)
   result
 }
 
