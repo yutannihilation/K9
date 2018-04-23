@@ -23,6 +23,11 @@ k9_request <- function(verb, path, query = list(), ...) {
     ...
   )
 
+  if (verb == "POST") {
+    httr::stop_for_status(res)
+    return(list(status = res$status, content = httr::content(res)))
+  }
+
   x_ratelimit_remaining <- res$headers[["x-ratelimit-remaining"]]
   x_ratelimit_reset <- res$headers[["x-ratelimit-reset"]]
 

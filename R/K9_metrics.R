@@ -104,6 +104,48 @@ k9_get_metrics_one <- function(query, from, to) {
   extract_scope(result_df)
 }
 
+#' Posts a metric value to Datadog
+#'
+#' This end point allows you to post time-series data that can be graphed on Datadog’s dashboards or queried from any time period.
+#'
+#' @param metric the name of the time series
+#' @param metric_type type of your metric either: gauge, rate, or count. Optional, default=gauge
+#' @param value the numeric value to post
+#' @param tags a list of tags associated with the metric.
+#' @param interval if the type of the metric is rate or count, define the corresponding interval. Optional, default=None
+#'
+#' @details
+#' The Datadog API uses resource-oriented URLs, uses status codes to indicate the success or failure of requests and returns JSON from all requests. 
+#' With this method you can post counters, gauges to measure the value of a 
+#' particular thing over time and rates that represent the derivative of a 
+#' metric, it’s the value variation of a metric on a defined time interval.
+#' @seealso
+#' <http://docs.datadoghq.com/api/?lang=console#metrics>
+#' <http://docs.datadoghq.com/graphing/>
+#' <https://docs.datadoghq.com/developers/metrics/#metric-types> 
+#'
+#' @export
+k9_post_metric <- function(metric, metric_type, value, tags=list(), interval=NULL) {
+  series <- list(
+      metric = metric,
+      type = metric_type,
+      points = list(I(c(to_epochtime(Sys.time()),value)))
+    )
+  if (length(tags) > 0) {
+    series["tags"] <- I(tags)
+  }
+  if (!is.null(interval)) {
+    series["interval"] <- c(interval)
+  }
+
+  result <- k9_request(verb = "POST",
+                        path = "/api/v1/series",
+                        body = list("series" = list(series)),
+                        encode = "json")
+
+  result
+}
+
 flatten_get_metrics <- function(result) {
   purrr::map_df(result$series, flatten_metric_one)
 }
