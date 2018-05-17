@@ -1,3 +1,7 @@
+# datadogr 0.1.2
+
+* New function `k9_post_metric()` posts a metric value to Datadog (#7, @renatoaquino).
+
 # datadogr 0.1.1
 
 * Improve the calculation of the time period for metrics.
