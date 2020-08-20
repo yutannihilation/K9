@@ -132,7 +132,7 @@ k9_post_metric <- function(metric, metric_type, value, tags=list(), interval=NUL
       points = list(I(c(to_epochtime(Sys.time()),value)))
     )
   if (length(tags) > 0) {
-    series["tags"] <- I(tags)
+    series[["tags"]] <- I(tags)
   }
   if (!is.null(interval)) {
     series["interval"] <- c(interval)
