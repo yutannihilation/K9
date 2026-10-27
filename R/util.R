@@ -52,13 +52,19 @@ k9_request <- function(verb, path, query = list(), ...) {
 to_epochtime <- function(x) {
   if(length(x) > 1) stop('x must be a vector of length one.')
 
-  purrr::when(x,
-              is.numeric(.) ~ as.integer(.),
-              lubridate::is.POSIXct(.) ~ as.integer(.),
-              lubridate::is.POSIXlt(.) ~ as.integer(as.POSIXct(.)),
-              lubridate::is.Date(.) ~ as.integer(as.POSIXct(.)),
-              is.character(.) ~ as.integer(anytime::anytime(.)),
-              ~ stop("Unsupported type", typeof(.)))
+  if (is.numeric(x)) {
+    as.integer(x)
+  } else if (lubridate::is.POSIXct(x)) {
+    as.integer(x)
+  } else if (lubridate::is.POSIXlt(x)) {
+    as.integer(as.POSIXct(x))
+  } else if (lubridate::is.Date(x)) {
+    as.integer(as.POSIXct(x))
+  } else if (is.character(x)) {
+    as.integer(anytime::anytime(x))
+  } else {
+    stop("Unsupported type", typeof(x))
+  }
 }
 
 # 1) If `from` and `to` are both `NULL`, get metrics between 1 day ago and now.
